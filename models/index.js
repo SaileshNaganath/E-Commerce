@@ -18,7 +18,7 @@ const Sequelize =require ("sequelize");
  * Creating DB Connection
  */
 
-const seq = new Sequelize(
+const sequelize = new Sequelize(
     config.DB,
     config.USER,
     config.PASSWORD,
@@ -32,8 +32,10 @@ const seq = new Sequelize(
 
 const db = {};
 db.Sequelize = Sequelize;
-db.sequelize = seq;
+db.sequelize = sequelize;
+
 db.category = require("./category.model.js")(sequelize,Sequelize);
+db.product = require("./product.model.js")(sequelize,Sequelize);
 
 /**
  * db={

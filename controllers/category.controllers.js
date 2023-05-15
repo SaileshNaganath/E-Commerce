@@ -15,18 +15,19 @@ exports.create =(req,res)=>{
      * Validation of request body
      */
     if(!req.body.name){
-        res.status(400).send({
-            message:"Name of the category can't be empty"
-        })
-        return;
+      res.status(400).send({
+         message:"Name of the category can't be empty"
+     })
+     return;
     }
 }
+
 
 /**
  * Creation of the category object to be stored in db
  */
-
-const category={
+exports.create=(req,res)=>{
+let category={
     name:req.body.name,
     description:req.body.description
 };
@@ -43,7 +44,7 @@ Category.create(category)
         message:"Some internal error while storing the category"
     })
 })
-
+}
 /**
  * GET:Get the list of all categories
  */
@@ -75,11 +76,11 @@ promise
 }
 
 /**
- * GET:Get teh category based on id
+ * GET:Get the category based on id
  */
 
 exports.findOne=(req,res)=>{
-    const categoryID = req.params.id;
+    let categoryID = req.params.id;
 
     Category.findByPk(categoryID)
     .then(category=>{
@@ -104,7 +105,9 @@ exports.update=(req,res)=>{
 
     const categoryID =req.params.id;
 
-    Category.update(category)
+    Category.update(category,{
+        where:{id:categoryID}
+    })
     .then (updateCategory=>{
         //Where the updation happened successfully
         //You need to send the updated row to the table.
@@ -124,6 +127,28 @@ exports.update=(req,res)=>{
         //where the update task failed
         res.status(500).send({
             message:"Some Internal Error wHile Updating the request"
+        })
+    })
+}
+
+/** Delete the existing category */
+
+exports.delete =(req,res)=>{
+    const categoryID = req.params.id;
+
+    Category.destroy({
+        where:{
+            id:categoryID
+        }
+    })
+    .then(result=>{
+        res.status(200).send({
+            message:"Successfully deleted the category"
+        })
+    })
+    .catch(err=>{
+        res.status(500).send({
+            message:"Some Internal Error while deleting Category based on ID"
         })
     })
 }

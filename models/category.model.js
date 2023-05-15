@@ -12,7 +12,7 @@
 
 module.exports =(sequelize,Sequelize)=>{
 
-const Category =Sequelize.define("category",{
+const Category =sequelize.define("category",{
     id:{
         type:Sequelize.INTEGER,
         primaryKey:true,
@@ -20,11 +20,13 @@ const Category =Sequelize.define("category",{
     },
     name:{
         type:Sequelize.STRING,
-        allowNull:false
+        allowNull:false,
     },
     description:{
         type:Sequelize.STRING
     }
+},{
+    tableName:'categories'
 });
 return Category;
 }
