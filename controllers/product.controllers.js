@@ -10,31 +10,13 @@ const Product =db.product;
  * Create and save a new product
  */
 
-exports.create =(req,res)=>{
-    /**
-     * Validation of request body
-     */
-    if(!req.body.name){
-        res.status(400).send({
-            message:"Name of the product can't be empty"
-        })
-        return;
-    }
-
-    if(!req.body.cost){
-        res.status(400).send({
-            message:"Cost of the product can't be empty"
-        })
-        return;
-    }  
-}  
-
 
 exports.create=(req,res)=>{
     let product={
         name:req.body.name,
         description:req.body.description,
-        cost:req.body.cost
+        cost:req.body.cost,
+        categoryID:req.body.categoryID
     };
 
     Product.create(product)
