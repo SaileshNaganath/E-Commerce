@@ -40,14 +40,43 @@ exports.create=(req,res)=>{
 
 exports.findAll =(req,res)=>{
     let productName = req.query.name;
+    let minCost = req.query.minCost; //null
+    let maxCost = req.query.maxCost; //null
     let promise;
+
     if(productName){
         promise=Product.finAll({
             where:{
                 name:productName
             }
-        });
-    }else{
+        })
+    }else if (minCost && maxCost){
+        promise = Product.findAll({
+            where:{
+                cost:{
+                    [Op.gte]:minCost,
+                    [Op.lte]:mxCost
+                }
+            }
+        })
+    }else if (minCost){
+        promise = Product.findAll({
+            where:{
+                cost:{
+                    [Op.gte]:minCost,
+                }
+            }
+        })
+    }else if (maxCost){
+        promise = Product.findAll({
+            where:{
+                cost:{
+                    [Op.lte]:maxCost,
+                }
+            }
+        })
+    }
+    else{
         promise=Product.findAll();
     }
 
