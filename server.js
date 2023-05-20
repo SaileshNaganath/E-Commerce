@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 const db=require("./models");
 const Category = db.category;
 const Product = db.product;
+const Role=db.role;
 
 Category.hasMany(Product); //This will create a foreign key column (categoryID)
 db.sequelize.sync({force:true})
@@ -49,11 +50,25 @@ function init(){
     .catch(err=>{
         console.log("Error while initialising categories table");
     })
+
+    /**
+     * adding roles
+     */
+
+    Role.create({
+        id:1,
+        name:"user"
+    });
+    Role.create({
+        id:2,
+        name:"admin"
+    })
     
 }
 
 require ('./routes/category.routes')(app)
 require ('./routes/product.routes')(app)
+require('./routes/auth.routes')(app)
 
 app.listen (serverConfig.PORT,()=>{
     console.log(`Application is listening in port: ${serverConfig.PORT}`);
