@@ -28,7 +28,13 @@ const sequelize = new Sequelize(
     }
 
 );
-
+/**
+ * db={
+ * Sequelize;
+ * sequelize;
+ * category;
+ * }
+ */
 
 const db = {};
 db.Sequelize = Sequelize;
@@ -37,12 +43,19 @@ db.sequelize = sequelize;
 db.category = require("./category.model.js")(sequelize,Sequelize);
 db.product = require("./product.model.js")(sequelize,Sequelize);
 
-/**
- * db={
- * Sequelize;
- * sequelize;
- * category;
- * }
- */
+db.user=require("./user.model.js")(sequelize,Sequelize);
+db.role=require("./role.model.js")(sequelize,Sequelize);
+
+//Establish relationship with user and role
+
+db.role.belongsToMany(db.user,{
+    through:"user_roles",
+    foreignKey:"roleid",
+})
+
+db.user.belongsToMany(db.role,{
+    through:"user_roles",
+    foreignKey:"userid",
+})
 
 module.exports = db;

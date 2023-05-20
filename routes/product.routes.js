@@ -14,4 +14,6 @@ module.exports =function(app){
     app.put("/ecom/api/v1/products/:id",[requestValidator.validateProductRequest],productController.update);
 
     app.delete("/ecom/api/v1/products/:id",productController.delete);
+
+    app.get("/ecom/api/v1/categories/:categoryID/products",productController.getProductsUnderCategory);
 }
