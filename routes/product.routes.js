@@ -11,7 +11,7 @@ module.exports =function(app){
 
     app.get("/ecom/api/v1/products/:id",productController.findOne);
 
-    app.put("/ecom/api/v1/products/:id",[requestValidator.validateProductRequest,authJwt.verifyToken,authJwt.isAdmin]],productController.update);
+    app.put("/ecom/api/v1/products/:id",[requestValidator.validateProductRequest,authJwt.verifyToken,authJwt.isAdmin],productController.update);
 
     app.delete("/ecom/api/v1/products/:id",[authJwt.verifyToken,authJwt.isAdmin],productController.delete);
 
