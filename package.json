@@ -4,15 +4,17 @@
   "description": "Building e commerce",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start":"node server.js"
   },
-  "author": "sailesh naganath",
+  "author": "Sailesh Naganath",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jest": "^29.5.0",
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.3.1",
     "node": "^20.1.0",
